@@ -135,19 +135,6 @@ namespace ClassLibrary.Task2
             MyQuickSort(array, 0, array.Length, false);
         }
 
-        public void CreateAnArray()
-        {
-            var r = new Random();
-            int[][] array = new int[4][];
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = new int[4];
-                for (int j = 0; j < 4; j++)
-                {
-                    array[i][j] = r.Next(100);
-                }
-            }
-        }
     }
 }
 
