@@ -10,55 +10,55 @@ namespace ClassLibrary.Task2
     {
         private int FindMaxElement(int[] array)
         {
-            if (array.Length == 0) throw new NullReferenceException("Array is empty");
-            if (array.Length == 1) return array[0];
+            if (array.Length == 0 || array.Length == 1) throw new NullReferenceException("Array is empty");
+            if (array.Length == 2) return array[0];
             int max = array[0];
-            for (int i = 1; i < array.Length; i++)
+            for (int i = 1; i < array.Length - 1; i++)
             {
                 if (array[i] > max)
                 {
                     max = array[i];
                 }
             }
-            array[-1] = max;
+            array[array.Length - 1] = max;
             return max;
         }
         private int FindMinElement(int[] array)
         {
-            if (array.Length == 0) throw new NullReferenceException("Array is empty");
-            if (array.Length == 1) return array[0];
+            if (array.Length == 0 || array.Length == 1) throw new NullReferenceException("Array is empty");
+            if (array.Length == 2) return array[0];
             int min = array[0];
-            for (int i = 1; i < array.Length; i++)
+            for (int i = 1; i < array.Length - 1; i++)
             {
                 if (array[i] < min)
                 {
                     min = array[i];
                 }
             }
-            array[-1] = min;
+            array[array.Length - 1] = min;
             return min;
         }
         private int FindSumOfElements(int[] array)
         {
-            if (array.Length == 0) throw new NullReferenceException("Array is empty");
-            int sum = array.Sum();
-            array[-1] = sum;
+            if (array.Length == 0 || array.Length == 1) throw new NullReferenceException("Array is empty");
+            int sum = array.Sum() - array[array.Length - 1];
+            array[array.Length - 1] = sum;
             return sum;
         }
 
         private int PartitionToUp(int[][] array, int left, int right)
         {
-            int pivot = array[left][-1];
+            int pivot = array[left][array[left].Length - 1];
 
             while (true)
             {
-                while (array[left][-1] <= pivot)
+                while (array[left][array[left].Length - 1] < pivot)
                     left++;
 
-                while (array[right][-1] > pivot)
+                while (array[right][array[right].Length - 1] > pivot)
                     right--;
 
-                if (array[right][-1] == pivot && array[left][-1] == pivot)
+                if (array[right][array[right].Length - 1] == pivot && array[left][array[left].Length - 1] == pivot)
                     left++;
 
                 if (left < right)
@@ -75,17 +75,17 @@ namespace ClassLibrary.Task2
         }
         private int PartitionToDown(int[][] array, int left, int right)
         {
-            int pivot = array[left][-1];
+            int pivot = array[left][array[left].Length - 1];
 
             while (true)
             {
-                while (array[left][-1] >= pivot)
+                while (array[left][array[left].Length - 1] > pivot)
                     left++;
 
-                while (array[right][-1] < pivot)
+                while (array[right][array[right].Length - 1] < pivot)
                     right--;
 
-                if (array[right][-1] == pivot && array[left][-1] == pivot)
+                if (array[right][array[right].Length - 1] == pivot && array[left][array[left].Length - 1] == pivot)
                     left++;
 
                 if (left < right)
@@ -118,23 +118,55 @@ namespace ClassLibrary.Task2
             }
         }
 
-        public void SortInAscendingOrderOfMaxElements(int[][] array)
+        public void SortInAscendingOrderByMaxElements(int[][] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
                 FindMaxElement(array[i]);
             }
-            MyQuickSort(array, 0, array.Length, true);
+            MyQuickSort(array, 0, array.Length - 1, true);
         }
-        public void SortInDescendingOrderOfMaxElements(int[][] array)
+        public void SortInDescendingOrderByMaxElements(int[][] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
                 FindMaxElement(array[i]);
             }
-            MyQuickSort(array, 0, array.Length, false);
+            MyQuickSort(array, 0, array.Length - 1, false);
+        }
+        public void SortInAscendingOrderByMinElements(int[][] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                FindMinElement(array[i]);
+            }
+            MyQuickSort(array, 0, array.Length - 1, true);
+        }
+        public void SortInDescendingOrderByMinElements(int[][] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                FindMinElement(array[i]);
+            }
+            MyQuickSort(array, 0, array.Length - 1, false);
         }
 
+        public void SortInAscendingOrderBySum(int[][] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                FindSumOfElements(array[i]);
+            }
+            MyQuickSort(array, 0, array.Length - 1, true);
+        }
+        public void SortInDescendingOrderBySum(int[][] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                FindSumOfElements(array[i]);
+            }
+            MyQuickSort(array, 0, array.Length - 1, false);
+        }
     }
 }
 
