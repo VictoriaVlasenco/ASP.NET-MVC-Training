@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Task2
 {
-    public class Task2
+    public class JaggedArraySort
     {
         private int FindMaxElement(int[] array)
         {
